@@ -69,7 +69,7 @@ const SubmitCar = () => {
       formData.append("images", pic.originFileObj);
     });
     const response = await addCarRecord(formData);
-    if (response) {
+    if (response.data) {
       // Success handling
       toast.success(response.message);
 

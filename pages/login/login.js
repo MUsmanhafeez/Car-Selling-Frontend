@@ -20,10 +20,9 @@ const Login = () => {
       password,
     };
     const response = await login(details);
-    if (response) {
+    if (response.token) {
       localStorage.setItem("token", response.token);
       toast.success(response.message);
-
       // Redirect to submit-car page
       window.location.href = "/car";
     } else {
