@@ -19,18 +19,22 @@ const Login = () => {
       email,
       password,
     };
-    const response = await login(details);
-    if (response.token) {
-      localStorage.setItem("token", response.token);
-      toast.success(response.message);
-      // Redirect to submit-car page
-      window.location.href = "/car";
-    } else {
-      toast.error(response.message);
-      // setError(response.message || "Invalid credentials");
+    try {
+      const response = await login(details);
+      if (response.token) {
+        localStorage.setItem("token", response.token);
+        toast.success(response.message);
+        // Redirect to submit-car page
+        window.location.href = "/car";
+      } else {
+        toast.error(response.message || "Invalid credentials");
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred during login");
+      console.error("Error during login:", error);
     }
   };
- 
+
   return (
     <Row justify="center" align="middle" style={{ height: "100vh" }}>
       <Col xs={24} sm={20} md={16} lg={12} xl={10}>

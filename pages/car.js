@@ -55,7 +55,6 @@ const SubmitCar = () => {
     setPreviewVisible(true);
   };
 
-
   const handleCancel = () => setPreviewVisible(false);
 
   const handleSubmit = async (values) => {
@@ -68,19 +67,19 @@ const SubmitCar = () => {
     pictures.forEach((pic) => {
       formData.append("images", pic.originFileObj);
     });
-    const response = await addCarRecord(formData);
-    if (response.data) {
-      // Success handling
-      toast.success(response.message);
-
-      console.log("Car submitted successfully:", response);
-      // message.success("Car submitted successfully!");
-      form.resetFields();
-      setPictures([]);
-    } else {
-      toast.error(response.message);
-
-      // setError(response.message || "Error submitting car details");
+    try {
+      const response = await addCarRecord(formData);
+      if (response.data) {
+        toast.success(response.meesage);
+        console.log("Car submitted successfully:", response);
+        form.resetFields();
+        setPictures([]);
+      } else {
+        toast.error(response.message || "Error submitting car details");
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+      console.error("Error submitting car details:", error);
     }
   };
 
